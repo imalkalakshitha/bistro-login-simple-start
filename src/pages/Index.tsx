@@ -1,19 +1,11 @@
 
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 import Logo from "../components/Logo";
 import { Button } from "../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Index = () => {
-  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/dashboard");
-    }
-  }, [isAuthenticated, navigate]);
 
   return (
     <div className="min-h-screen bg-resto-background">
@@ -22,17 +14,10 @@ const Index = () => {
           <Logo size="lg" />
           <div className="flex gap-4">
             <Button 
-              variant="outline" 
-              onClick={() => navigate("/login")}
-              className="border-resto-primary text-resto-primary hover:bg-resto-primary hover:text-white"
-            >
-              Log In
-            </Button>
-            <Button 
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/dashboard")}
               className="bg-resto-primary text-white hover:bg-resto-secondary"
             >
-              Sign Up
+              Dashboard
             </Button>
           </div>
         </header>
@@ -45,7 +30,7 @@ const Index = () => {
             </p>
             <Button 
               size="lg"
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/dashboard")}
               className="bg-resto-primary text-white hover:bg-resto-secondary"
             >
               Get Started
@@ -62,6 +47,47 @@ const Index = () => {
             </div>
           </div>
         </main>
+        
+        {/* Added Features Section */}
+        <section className="py-16">
+          <h2 className="text-3xl font-bold text-center text-resto-primary mb-12">Key Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="shadow-md">
+              <CardHeader>
+                <CardTitle className="text-xl text-resto-primary">Menu Management</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Easily create, update and manage your restaurant's menu items with real-time updates and pricing.</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="shadow-md">
+              <CardHeader>
+                <CardTitle className="text-xl text-resto-primary">Reservation System</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Handle table reservations efficiently with automated confirmation and reminder notifications.</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="shadow-md">
+              <CardHeader>
+                <CardTitle className="text-xl text-resto-primary">Order Tracking</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Track orders from receipt to delivery with status updates and kitchen coordination tools.</p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+        
+        {/* Footer Section */}
+        <footer className="py-8 border-t mt-12">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <Logo size="sm" />
+            <p className="text-sm text-gray-500 mt-4 md:mt-0">© 2025 RestroHub. All rights reserved.</p>
+          </div>
+        </footer>
       </div>
     </div>
   );

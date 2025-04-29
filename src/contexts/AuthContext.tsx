@@ -10,9 +10,6 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (name: string, email: string, password: string) => Promise<void>;
-  logout: () => void;
   isAuthenticated: boolean;
 }
 
@@ -27,46 +24,19 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-
-  const login = async (email: string, password: string) => {
-    // In a real app, this would make an API call to validate credentials
-    console.log("Logging in with", email, password);
-    
-    // Simulating successful login for demo purposes
-    setUser({
-      id: "1",
-      email,
-      name: email.split("@")[0],
-      role: "manager",
-    });
-  };
-
-  const signup = async (name: string, email: string, password: string) => {
-    // In a real app, this would make an API call to create a new user
-    console.log("Signing up with", name, email, password);
-    
-    // Simulating successful signup for demo purposes
-    setUser({
-      id: "1",
-      email,
-      name,
-      role: "staff",
-    });
-  };
-
-  const logout = () => {
-    setUser(null);
-  };
+  // Create a default user for demo purposes since we've removed login functionality
+  const [user] = useState<User | null>({
+    id: "1",
+    email: "demo@restrohub.com",
+    name: "Demo User",
+    role: "manager",
+  });
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        login,
-        signup,
-        logout,
-        isAuthenticated: user !== null,
+        isAuthenticated: true, // Always authenticated for demo
       }}
     >
       {children}
